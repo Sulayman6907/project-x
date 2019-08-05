@@ -9,31 +9,41 @@ const companyService = apiAdapter(config.COMPANY_SERVICE_BASE_URL);
 const usersService = apiAdapter(config.USER_SERVICE_BASE_URL);
 const webpageAPI = apiAdapter(config.WEBPAGE_URL);
 
-router.get(['/companies', '/companies/*'], async ctx => {
+router.get(['/api/companies', '/api/companies/*'], async ctx => {
   const resp = await companyService.get(ctx.path);
   ctx.body = resp.data;
 });
 
-router.post('/companies', async ctx => {
-  const resp = await companyService.post(ctx.path, ctx.body);
+router.post('/api/companies', async ctx => {
+  const resp = await companyService.post(ctx.path, ctx.request.body);
 
   if (resp.status >= 200 && resp.status <= 299) {
-    ctx.body = null;
+    ctx.body = resp.data || null;
   } else {
     throw new Error(resp.statusText);
   }
 });
 
-router.get(['/users', '/users/*'], async ctx => {
+router.get(['/api/users', '/api/users/*'], async ctx => {
   const resp = await usersService.get(ctx.path);
   ctx.body = resp.data;
 });
 
-router.post('/users', async ctx => {
-  const resp = await usersService.post(ctx.path, ctx.body);
+router.put('/api/users/*', async ctx => {
+  const resp = await usersService.put(ctx.path, ctx.request.body);
+  ctx.body = resp.data;
+});
+
+router.delete('/api/users/*', async ctx => {
+  const resp = await usersService.delete(ctx.path);
+  ctx.body = resp.data;
+});
+
+router.post('/api/users', async ctx => {
+  const resp = await usersService.post(ctx.path, ctx.request.body);
 
   if (resp.status >= 200 && resp.status <= 299) {
-    ctx.body = null;
+    ctx.body = resp.data || null;
   } else {
     throw new Error(resp.statusText);
   }

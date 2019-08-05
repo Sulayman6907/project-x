@@ -2,3 +2,5 @@
 apiGateway/node_modules/
 
 apiGateway/yarn\.lock
+
+apiGateway/package-lock\.json
