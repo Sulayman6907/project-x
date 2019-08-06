@@ -1,6 +1,8 @@
 
-apiGateway/node_modules/
+node_modules/
 
 apiGateway/yarn\.lock
 
 apiGateway/package-lock\.json
+
+companyService/package-lock\.json
